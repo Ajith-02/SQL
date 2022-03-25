@@ -1,0 +1,264 @@
+[SQL Tutorial](https://www.w3schools.com/sql/)
+
+Create Read Update Destroy - CRUD
+
+**SQL Commands: CREAT Table and INSERT Data**
+
+[SQL Online Compiler - for Data Science](https://sqliteonline.com/)
+
+```sql
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+   ....
+);
+```
+
+Data Types
+
+[SQL Data Types for MySQL, SQL Server, and MS Access](https://www.w3schools.com/sql/sql_datatypes.asp)
+
+The `PRIMARY KEY`constraint uniquely identifies each record in a table.
+
+[SQL PRIMARY KEY Constraint](https://www.w3schools.com/sql/sql_primarykey.asp)
+
+**Creating a Table**
+
+```sql
+CREATE TABLE Products (
+id int,
+  name STRING,
+  price MONEY,
+  PRIMARY KEY (id)
+);
+```
+
+**Inserting data in the created table**
+
+[SQL INSERT INTO Statement](https://www.w3schools.com/sql/sql_insert.asp)
+
+```sql
+INSERT INTO Products
+VALUES(1, "Pen", 1.5)
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3e487424-c21b-4b1f-afa5-6a9953096178/Untitled.png)
+
+Skipping field, to skip field use what field we need Products (id, name), price not needed so leave it
+
+```sql
+INSERT INTO Products (id, name)
+VALUES(2, "Pencil" )
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/50586376-2d20-4baf-b129-7d80ab07614f/Untitled.png)
+
+**SQL Commands: READ, SELECT and WHERE**
+
+“  * ” means everything
+
+```sql
+SELECT * FROM Products
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5e224792-9f90-4a4e-b4aa-1647915f1452/Untitled.png)
+
+To select a specific table
+
+```sql
+SELECT name, price FROM Products
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a865d42f-6221-48c4-9afa-798db0ee7a4a/Untitled.png)
+
+WHERE
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+[SQL WHERE Clause](https://www.w3schools.com/sql/sql_where.asp)
+
+in WHERE we can give logical operator and many condition,
+
+check the w3schools for more
+
+```sql
+SELECT * FROM Products WHERE id=1;
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ed265791-35ac-496f-83a3-236e3a3e9372/Untitled.png)
+
+**Updating Single Values and Adding Columns in SQL:**
+
+Update
+
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+```
+
+[SQL UPDATE Statement](https://www.w3schools.com/sql/sql_update.asp)
+
+in id 2 the price value is null, now we updating it
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5e224792-9f90-4a4e-b4aa-1647915f1452/Untitled.png)
+
+updating the price for null
+
+```sql
+UPDATE Products 
+SET price=10
+WHERE id=2
+```
+
+now the price has been updated
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/40551be3-5e03-446e-9168-708597be837d/Untitled.png)
+
+ALTER
+
+```sql
+ALTER TABLE table_name
+ADD column_name datatype;
+```
+
+[SQL ALTER TABLE Statement](https://www.w3schools.com/sql/sql_alter.asp)
+
+Altering the existing table (added a new column)
+
+```sql
+ALTER TABLE Products
+ADD Stock int
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5989d506-89bc-43aa-90d0-20bea2e5a73c/Untitled.png)
+
+Updating the Stocks
+
+```sql
+UPDATE Products
+set stock = 100
+WHERE id=1
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/45deaba9-cc28-4c6a-b5dc-f6a174df7c2d/Untitled.png)
+
+But it can be updated one by one
+
+```sql
+UPDATE Products
+set stock = 50
+WHERE id=2
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/415bb5c3-e8db-4dd5-8e18-573889089846/Untitled.png)
+
+**SQL Commands: DELETE**
+
+```sql
+DELETE FROM table_name WHERE condition;
+```
+
+in WHERE we can give any condition, like WHERE name = Pen
+
+```sql
+DELETE FROM Products
+WHERE id=1
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/591ad58f-4594-40f0-99d7-f3619331cc97/Untitled.png)
+
+**Understanding SQL Relationships, Foreign Keys and Inner Joins:**
+
+[SQL FOREIGN KEY Constraint](https://www.w3schools.com/sql/sql_foreignkey.asp)
+
+Foreign Key that going to link all together
+
+```sql
+CREATE TABLE orders(
+id int,
+  order_number int,
+  customer_id int,
+  product_id int,
+  PRIMARY KEY(id),
+  FOREIGN KEY(customer_id) REFERENCES customers(id),
+  FOREIGN KEY(product_id) REFERENCES products(id)
+);
+```
+
+Created a customers table
+
+```sql
+CREATE TABLE customers (
+  id int,
+  First_name STRING,
+  Last_name STRING,
+  Address STRING
+);
+```
+
+```sql
+INSERT INTO customers
+VALUES(1, "Ajith", "p", "asfdasf")
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c4aedc0a-c162-46c0-a6f7-24f2b7ed3d73/Untitled.png)
+
+orders table
+
+```sql
+CREATE TABLE orderss(
+id int,
+  order_number int,
+  customer_id int,
+  product_id int,
+  PRIMARY KEY(id),
+  FOREIGN KEY(customer_id) REFERENCES customers(id),
+  FOREIGN KEY(product_id) REFERENCES Products(id)
+);
+```
+
+```sql
+INSERT INTO orderss
+VALUES(1, 4526, 2, 1)
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1694a82b-1574-476e-b9df-fd1c05a70985/Untitled.png)
+
+Inner Joints
+
+[SQL INNER JOIN Keyword](https://www.w3schools.com/sql/sql_join_inner.asp)
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/32b94e35-d2e0-4969-9330-1a3b9cb1469e/Untitled.png)
+
+```sql
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+```
+
+```sql
+SELECT orderss.order_number, customers.first_name, customers.Last_name, customers.Address
+FROM orderss
+INNER JOIN customers
+ON orderss.customer_id = customers.id
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/88822339-fab5-4a97-b441-ba8adc9a9922/Untitled.png)
+
+orders table with product table
+
+```sql
+SELECT orderss.order_number, Products.name, Products.price, Products.Stock
+from orderss
+INNER JOIN Products
+ON orderss.product_id = Products.id
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/467bd1c9-827d-4172-8541-046ae356599e/Untitled.png)
